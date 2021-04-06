@@ -11,19 +11,19 @@ class ListenerController extends Controller
     function orderStatus(Request $request)
     {
         Storage::disk('local')->put('order-status-content.txt', $request->getContent());
-        Storage::disk('local')->put('order-status-header.txt', $request->header());
+        Storage::disk('local')->put('order-status-header.txt', json_encode($request->header()));
     }
 
     function orderCancellation(Request $request)
     {
         Storage::disk('local')->put('order-cancellation-content.txt', $request->getContent());
-        Storage::disk('local')->put('order-cancellation-header.txt', $request->header());
+        Storage::disk('local')->put('order-cancellation-header.txt', json_encode($request->header()));
     }
 
     function orderConfirmDeliveryNotification(Request $request)
     {
         Storage::disk('local')->put('order-confirmDelivery-content.txt', $request->getContent());
-        Storage::disk('local')->put('order-confirmDelivery-header.txt', $request->header());
+        Storage::disk('local')->put('order-confirmDelivery-header.txt', json_encode($request->header()));
     }
 
     function orderRequestCancellation(Request $request)
