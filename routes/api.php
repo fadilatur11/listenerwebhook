@@ -19,8 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('order-notification',[ListenerController::class, 'orderNotification']);
-Route::post('order-status',[ListenerController::class, 'orderStatus']);
-Route::post('order-cancellation',[ListenerController::class, 'orderCancellation']);
-Route::post('order-confirm-delivery',[ListenerController::class, 'orderConfirmDeliveryNotification']);
-Route::post('order-request-cancel',[ListenerController::class, 'orderRequestCancellation']);
+Route::middleware(['hmacVerify'])->group(function() {
+    Route::post('order-notification',[ListenerController::class, 'orderNotification']);
+    Route::post('order-status',[ListenerController::class, 'orderStatus']);
+    Route::post('order-cancellation',[ListenerController::class, 'orderCancellation']);
+    Route::post('order-confirm-delivery',[ListenerController::class, 'orderConfirmDeliveryNotification']);
+    Route::post('order-request-cancel',[ListenerController::class, 'orderRequestCancellation']);
+});
