@@ -22,12 +22,12 @@ class AuthorizationHmac
         $calculate_hmac = hash_hmac('sha256', $payload, $secret);
 
         if ($request->header('Authorization') != $calculate_hmac) {
-            // return response()->json([
-            //     'error' => [
-            //         'message' => 'Your Web Secret invalid',
-            //         'status_code' => 406
-            //         ]
-            //     ],406);
+            return response()->json([
+                'error' => [
+                    'message' => 'Your Web Secret invalid',
+                    'status_code' => 406
+                    ]
+                ],406);
             Storage::disk('local')->put('order-notification-content.txt', 'notfound');
             Storage::disk('local')->put('order-notification-header.txt', 'notfound');
         }
