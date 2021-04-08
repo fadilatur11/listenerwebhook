@@ -21,9 +21,9 @@ class AuthorizationHmac
         $payload = 'http://development-project.site/listener'.'|'.$request->getContent();
         $calculate_hmac = hash_hmac('sha256', $payload, $secret);
 
+        Storage::disk('local')->put('order-notification-content.txt', $calculate_hmac);
+        Storage::disk('local')->put('order-notification-header.txt', $request->header('Authorization'));
         if ($request->header('Authorization') != $calculate_hmac) {
-            Storage::disk('local')->put('order-notification-content.txt', 'notfound');
-            Storage::disk('local')->put('order-notification-header.txt', 'notfound');
             return response()->json([
                 'error' => [
                     'message' => 'Your Web Secret invalid',
