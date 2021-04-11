@@ -25,4 +25,6 @@ Route::middleware(['hmacVerify'])->group(function() {
     Route::post('order-cancellation',[ListenerController::class, 'orderCancellation']);
     Route::post('order-confirm-delivery',[ListenerController::class, 'orderConfirmDeliveryNotification']);
     Route::post('order-request-cancel',[ListenerController::class, 'orderRequestCancellation']);
+    Route::post('product/edit',[ListenerController::class,'productEdit']);
+    Route::post('product/change',[ListenerController::class,'productChange']);
 });
